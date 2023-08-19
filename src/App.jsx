@@ -11,7 +11,6 @@ class App extends Component {
     ],
     error: false,
     congratulationsMsg: false,
-    showCongratulationsImage: false,
   };
 
   onInput = (e) => {
@@ -19,15 +18,20 @@ class App extends Component {
   };
 
   onClick = () => {
-    //defensive check
+    // Defensive check
     let { input, todos } = this.state;
 
-    if (!input || input.length < 4 || todos.includes(input)) {
+    if (
+      !input ||
+      input.length < 4 ||
+      todos.some((todo) => todo.name === input)
+    ) {
       this.setState({ error: true });
-      return; //you already added this
+      return; // You already added this or input is invalid
     }
+
     todos = [...this.state.todos, { name: this.state.input, done: false }];
-    this.setState({ todos, error: false });
+    this.setState({ todos, error: false, congratulationsMsg: false }); // Reset congratulationsMsg
   };
 
   //listen for which one has been clicked - deligated listener
@@ -44,12 +48,10 @@ class App extends Component {
     if (todos.every((todo) => todo.done)) {
       this.setState({
         congratulationsMsg: true,
-        showCongratulationsImage: true,
       });
     } else {
       this.setState({
         congratulationsMsg: false,
-        showCongratulationsImage: false,
       });
     }
   };
@@ -57,16 +59,11 @@ class App extends Component {
   render() {
     //destructure the state
 
-    const { todos, error, congratulationsMsg, showCongratulationsImage } =
-      this.state;
+    const { todos, error, congratulationsMsg } = this.state;
 
     return (
       <>
-        <div
-          className={`container ${
-            showCongratulationsImage ? "congratulations-active" : ""
-          }`}
-        >
+        <div className="container">
           <div className="typewriterWrapper">
             <div className="typewriterText">
               <h1 className=" typewriter-text title">
@@ -93,23 +90,6 @@ class App extends Component {
                 ))}
               </ul>
               <p>{congratulationsMsg && "Nice One - You've done everything"}</p>
-              {showCongratulationsImage && (
-                <div className="congratsIFrame">
-                  <iframe
-                    src="https://giphy.com/embed/ely3apij36BJhoZ234"
-                    width="480"
-                    height="480"
-                    frameBorder="0"
-                    class="giphy-embed"
-                    allowFullScreen
-                  ></iframe>
-                  <p>
-                    <a href="https://giphy.com/gifs/good-job-congratulations-otter-ely3apij36BJhoZ234">
-                      via GIPHY
-                    </a>
-                  </p>
-                </div>
-              )}
             </div>
           </div>
         </div>
