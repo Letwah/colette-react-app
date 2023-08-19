@@ -66,6 +66,7 @@ class App extends Component {
         { x: 0, opacity: 1, duration: animationDuration, ease: "power2.out" }
       );
     }
+    // this.congratsMsgRef = document.querySelector(".showCongratulations");
   }
 
   render() {
@@ -80,7 +81,7 @@ class App extends Component {
     const slideDistance = 100; // in pixels
 
     if (congratulationsMsg) {
-      // bring essage in from side
+      // bring message in from side
       gsap.fromTo(
         congratsMsgRef,
         { x: slideDistance, opacity: 0 },
@@ -116,6 +117,28 @@ class App extends Component {
                   </li>
                 ))}
               </ul>
+              {/* <p
+                ref={(element) => {
+                  congratsMsgRef = element;
+                  if (congratsMsgRef && congratulationsMsg) {
+                    gsap.fromTo(
+                      congratsMsgRef,
+                      { x: slideDistance, opacity: 0 },
+                      {
+                        x: 0,
+                        opacity: 1,
+                        duration: animationDuration,
+                        ease: "power2.out",
+                      }
+                    );
+                  }
+                }}
+                className={
+                  congratulationsMsg
+                    ? "showCongratulations"
+                    : "hideCongratulations"
+                }
+              > */}
 
               <p
                 ref={(element) => (this.congratsMsgRef = element)}
