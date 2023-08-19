@@ -1,0 +1,241 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Syne", sans-serif;
+  min-height: 100vh;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.box {
+  width: 80%;
+  max-width: 40rem;
+  text-transform: uppercase;
+  padding-block: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  transition: all 0.3s;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.dark-text {
+  margin-bottom: 1rem;
+}
+
+.dark-text,
+.light-text {
+  line-height: 3.5rem;
+  font-size: clamp(3.5rem, 4vw, 4rem);
+}
+
+.mode-text {
+  line-height: 4.5rem;
+  font-size: 6rem;
+  text-align: justify;
+}
+
+button {
+  background: none;
+  width: 80%;
+  max-width: 20rem;
+  border: 2px solid;
+  font-weight: bold;
+  padding-block: 1rem;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+button:hover {
+  cursor: pointer;
+}
+
+.dark-mode {
+  background-color: #000;
+}
+.dark-mode .box {
+  background: #fff;
+}
+.dark-mode .button {
+  color: #fff;
+  border-color: #fff;
+}
+.dark-mode .button:hover {
+  color: hsl(230, 17%, 14%);
+  background-color: #fff;
+}
+.dark-mode .mode-text {
+  color: #000;
+}
+.dark-mode .dark-text {
+  color: #000;
+}
+.dark-mode .light-text {
+  color: #fff;
+}
+
+.light-mode {
+  background-color: #fff;
+}
+.light-mode .box {
+  background: #000;
+}
+.light-mode .button {
+  color: hsl(230, 17%, 14%);
+  border-color: hsl(230, 17%, 14%);
+}
+.light-mode .button:hover {
+  color: #fff;
+  background-color: hsl(230, 17%, 14%);
+}
+.light-mode .mode-text {
+  color: #fff;
+}
+.light-mode .dark-text {
+  color: #000;
+}
+.light-mode .light-text {
+  color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #000;
+  }
+  body .box {
+    background: #fff;
+  }
+  body .button {
+    color: #fff;
+    border-color: #fff;
+  }
+  body .button:hover {
+    color: hsl(230, 17%, 14%);
+    background-color: #fff;
+  }
+  body .mode-text {
+    color: #000;
+  }
+  body .dark-text {
+    color: #000;
+  }
+  body .light-text {
+    color: #fff;
+  }
+}
+/* neo brutalist */
+.container {
+  background-color: #c4c4ff;
+}
+
+@keyframes type {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes blink {
+  0%, 100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+}
+.typewriterWrapper,
+.inputFeild {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.typewriterText {
+  position: relative;
+  margin: 2rem auto;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  border-right: 1px solid white;
+  animation: type 2s 0.5s steps(30, end) forwards, blink 0.5s step-end infinite;
+}
+
+.title {
+  max-width: 40rem;
+}
+
+.addItem {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.listItems {
+  width: 100%;
+}
+
+.listContent {
+  max-width: 40rem;
+}
+
+input {
+  min-width: 25rem;
+  margin-right: 3rem;
+}
+
+ul {
+  padding: 1rem;
+}
+
+li,
+button,
+input,
+.container {
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid #213547;
+  box-shadow: #213547 0.5em 0.5em;
+}
+
+.done {
+  background-color: aquamarine;
+  text-decoration: line-through;
+}
+
+.undone {
+  background-color: rgb(212, 127, 255);
+}
+
+.congratulations-active {
+  background-image: url("https://giphy.com/embed/ely3apij36BJhoZ234");
+  background-repeat: repeat;
+  background-size: auto;
+  background-attachment: fixed;
+}/*# sourceMappingURL=app.css.map */

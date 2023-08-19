@@ -1,14 +1,17 @@
 import React, { Component } from "react";
-import "./App.css";
+
+import "./styles/app.css";
 
 class App extends Component {
   state = {
     todos: [
-      { name: "clean car", done: false },
-      { name: "walk Iggy", done: true },
-      { name: "pick up Myles", done: false },
+      { name: "water plants", done: false },
+      { name: "walk dog", done: true },
+      { name: "paperwork", done: false },
     ],
     error: false,
+    congratulationsMsg: false,
+    showCongratulationsImage: false,
   };
 
   onInput = (e) => {
@@ -31,38 +34,84 @@ class App extends Component {
 
   onDoneToggle = (name) => {
     const todos = [...this.state.todos];
+
     const indexOf = todos.findIndex((todo) => {
       return todo.name === name;
     });
 
     todos[indexOf].done = !todos[indexOf].done;
     this.setState({ todos });
+    if (todos.every((todo) => todo.done)) {
+      this.setState({
+        congratulationsMsg: true,
+        showCongratulationsImage: true,
+      });
+    } else {
+      this.setState({
+        congratulationsMsg: false,
+        showCongratulationsImage: false,
+      });
+    }
   };
 
   render() {
     //destructure the state
 
-    const { todos, error } = this.state;
+    const { todos, error, congratulationsMsg, showCongratulationsImage } =
+      this.state;
 
     return (
       <>
-        <h1>Colette's todo list</h1>
-        <div>
-          <input type="text" onInput={this.onInput}></input>
-          <p>{error && "Invalid input"}</p>
-          <button onClick={this.onClick}>Add</button>
-          <ul>
-            {todos.map((todo, indexOf, array) => {
-              return (
-                <li
-                  onClick={() => this.onDoneToggle(todo.name)}
-                  className={todo.done ? "done" : "undone"}
-                >
-                  {todo.name}
-                </li>
-              );
-            })}
-          </ul>
+        <div
+          className={`container ${
+            showCongratulationsImage ? "congratulations-active" : ""
+          }`}
+        >
+          <div className="typewriterWrapper">
+            <div className="typewriterText">
+              <h1 className=" typewriter-text title">
+                TODO's &#128466; &#9749;
+              </h1>
+            </div>
+          </div>
+          <div className="listContent">
+            <div className="addItem">
+              <input type="text" onInput={this.onInput}></input>
+              <p>{error && "Invalid input"}</p>
+              <button onClick={this.onClick}>Add</button>
+            </div>
+            <div className="listItems">
+              <ul>
+                {todos.map((todo, indexOf, array) => (
+                  <li
+                    key={todo.name}
+                    onClick={() => this.onDoneToggle(todo.name)}
+                    className={todo.done ? "done" : "undone"}
+                  >
+                    {todo.name}
+                  </li>
+                ))}
+              </ul>
+              <p>{congratulationsMsg && "Nice One - You've done everything"}</p>
+              {showCongratulationsImage && (
+                <div className="congratsIFrame">
+                  <iframe
+                    src="https://giphy.com/embed/ely3apij36BJhoZ234"
+                    width="480"
+                    height="480"
+                    frameBorder="0"
+                    class="giphy-embed"
+                    allowFullScreen
+                  ></iframe>
+                  <p>
+                    <a href="https://giphy.com/gifs/good-job-congratulations-otter-ely3apij36BJhoZ234">
+                      via GIPHY
+                    </a>
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </>
     );
