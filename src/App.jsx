@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { gsap } from "gsap";
 
 import "./styles/app.css";
 
@@ -27,14 +28,14 @@ class App extends Component {
       todos.some((todo) => todo.name === input)
     ) {
       this.setState({ error: true });
-      return; // You already added this or input is invalid
+      return; // input is invalid
     }
 
     todos = [...this.state.todos, { name: this.state.input, done: false }];
-    this.setState({ todos, error: false, congratulationsMsg: false }); // Reset congratulationsMsg
+    this.setState({ todos, error: false, congratulationsMsg: false }); // Reset
   };
 
-  //listen for which one has been clicked - deligated listener
+  //listen for which one has been clicked
 
   onDoneToggle = (name) => {
     const todos = [...this.state.todos];
@@ -56,10 +57,36 @@ class App extends Component {
     }
   };
 
+  componentDidMount() {
+    const { congratulationsMsg } = this.state;
+    if (congratulationsMsg) {
+      gsap.fromTo(
+        this.congratsMsgRef,
+        { x: slideDistance, opacity: 0 },
+        { x: 0, opacity: 1, duration: animationDuration, ease: "power2.out" }
+      );
+    }
+  }
+
   render() {
     //destructure the state
 
     const { todos, error, congratulationsMsg } = this.state;
+
+    let congratsMsgRef = null;
+
+    // GSAP Animation settings
+    const animationDuration = 1; // in seconds
+    const slideDistance = 100; // in pixels
+
+    if (congratulationsMsg) {
+      // bring essage in from side
+      gsap.fromTo(
+        congratsMsgRef,
+        { x: slideDistance, opacity: 0 },
+        { x: 0, opacity: 1, duration: animationDuration, ease: "power2.out" }
+      );
+    }
 
     return (
       <>
@@ -89,7 +116,18 @@ class App extends Component {
                   </li>
                 ))}
               </ul>
-              <p>{congratulationsMsg && "Nice One - You've done everything"}</p>
+
+              <p
+                ref={(element) => (this.congratsMsgRef = element)}
+                className={
+                  congratulationsMsg
+                    ? "showCongratulations"
+                    : "hideCongratulations"
+                }
+              >
+                {congratulationsMsg &&
+                  "Nice One - You've done everything! 🙌 🥳 ⚡️"}
+              </p>
             </div>
           </div>
         </div>

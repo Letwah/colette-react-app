@@ -225,6 +225,10 @@ ul {
   padding: 1rem;
 }
 
+p {
+  text-align: center;
+}
+
 li,
 button,
 input,
@@ -243,4 +247,16 @@ input,
 
 .undone {
   background-color: rgb(212, 127, 255);
+}
+
+.showCongratulations {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.hideCongratulations {
+  transform: translateX(100px);
+  opacity: 0;
+  transition: transform 1s ease, opacity 1s ease;
 }
