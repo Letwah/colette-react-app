@@ -14,6 +14,9 @@ class App extends Component {
     congratulationsMsg: false,
   };
 
+  //congratsMsgRef as a class property declared here
+  congratsMsgRef = null;
+
   onInput = (e) => {
     this.setState({ input: e.target.value });
   };
@@ -57,8 +60,14 @@ class App extends Component {
     }
   };
 
+  //gsap stuff
   componentDidMount() {
     const { congratulationsMsg } = this.state;
+
+    // GSAP Animation settings
+    const animationDuration = 1; // in seconds
+    const slideDistance = 100; // in pixels
+
     if (congratulationsMsg) {
       gsap.fromTo(
         this.congratsMsgRef,
@@ -66,28 +75,12 @@ class App extends Component {
         { x: 0, opacity: 1, duration: animationDuration, ease: "power2.out" }
       );
     }
-    // this.congratsMsgRef = document.querySelector(".showCongratulations");
   }
 
   render() {
     //destructure the state
 
     const { todos, error, congratulationsMsg } = this.state;
-
-    let congratsMsgRef = null;
-
-    // GSAP Animation settings
-    const animationDuration = 1; // in seconds
-    const slideDistance = 100; // in pixels
-
-    if (congratulationsMsg) {
-      // bring message in from side
-      gsap.fromTo(
-        congratsMsgRef,
-        { x: slideDistance, opacity: 0 },
-        { x: 0, opacity: 1, duration: animationDuration, ease: "power2.out" }
-      );
-    }
 
     return (
       <>
@@ -107,38 +100,19 @@ class App extends Component {
             </div>
             <div className="listItems">
               <ul>
-                {todos.map((todo, indexOf, array) => (
+                {todos.map((todo, index) => (
                   <li
                     key={todo.name}
                     onClick={() => this.onDoneToggle(todo.name)}
                     className={todo.done ? "done" : "undone"}
+                    ref={(element) =>
+                      (this[`todoRef${todos.indexOf(todo)}`] = element)
+                    }
                   >
                     {todo.name}
                   </li>
                 ))}
               </ul>
-              {/* <p
-                ref={(element) => {
-                  congratsMsgRef = element;
-                  if (congratsMsgRef && congratulationsMsg) {
-                    gsap.fromTo(
-                      congratsMsgRef,
-                      { x: slideDistance, opacity: 0 },
-                      {
-                        x: 0,
-                        opacity: 1,
-                        duration: animationDuration,
-                        ease: "power2.out",
-                      }
-                    );
-                  }
-                }}
-                className={
-                  congratulationsMsg
-                    ? "showCongratulations"
-                    : "hideCongratulations"
-                }
-              > */}
 
               <p
                 ref={(element) => (this.congratsMsgRef = element)}
