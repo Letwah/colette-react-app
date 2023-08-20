@@ -1,7 +1,13 @@
+//comment to test push
+
+//mixins
+
 $color-primary: #fff;
-$color-primary--dark: #000;
+$color-primary--dark: #213547;
 $color-secondary: hsl(230, 17%, 14%);
-$color-secondary--light: hsl(230, 17%, 30%);
+$background-color: #c4c4ff;
+$undone-bg-color: rgb(212, 127, 255);
+$alt-background-color: aquamarine;
 
 *,
 *::before,
@@ -36,7 +42,6 @@ body {
   width: 80%;
   max-width: 40rem;
   text-transform: uppercase;
-
   padding-block: 2rem;
   display: flex;
   justify-content: space-evenly;
@@ -49,12 +54,8 @@ body {
   flex-direction: column;
 }
 
-.dark-text {
+.text {
   margin-bottom: 1rem;
-}
-
-.dark-text,
-.light-text {
   line-height: 3.5rem;
   font-size: clamp(3.5rem, 4vw, 4rem);
 }
@@ -80,88 +81,15 @@ button {
   }
 }
 
-@mixin dark-mode {
-  background-color: $color-primary--dark;
-
-  .box {
-    background: $color-primary;
-  }
-
-  .button {
-    color: $color-primary;
-    border-color: $color-primary;
-
-    &:hover {
-      color: $color-secondary;
-      background-color: $color-primary;
-    }
-  }
-
-  .mode-text {
-    color: $color-primary--dark;
-  }
-
-  .dark-text {
-    color: $color-primary--dark;
-  }
-
-  .light-text {
-    color: $color-primary;
-  }
-}
-
-@mixin light-mode {
-  background-color: $color-primary;
-
-  .box {
-    background: $color-primary--dark;
-  }
-
-  .button {
-    color: $color-secondary;
-    border-color: $color-secondary;
-
-    &:hover {
-      color: $color-primary;
-      background-color: $color-secondary;
-    }
-  }
-
-  .mode-text {
-    color: $color-primary;
-  }
-
-  .dark-text {
-    color: $color-primary--dark;
-  }
-
-  .light-text {
-    color: $color-primary;
-  }
-}
-
-.dark-mode {
-  @include dark-mode;
-}
-
-.light-mode {
-  @include light-mode;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    @include dark-mode;
-  }
-}
-
 /* neo brutalist */
 
 .container {
-  background-color: #c4c4ff;
+  background-color: $background-color;
 }
 
 @keyframes type {
-  0% {
+  0%,
+  100% {
     width: 0;
   }
   100% {
@@ -201,15 +129,12 @@ button {
   max-width: 40rem;
 }
 
-.addItem {
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
-  align-items: center;
-}
-
+.addItem,
 .listItems {
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .listContent {
@@ -236,35 +161,27 @@ input,
   padding: 1rem;
   margin: 1rem;
   border-radius: 0.5rem;
-  border: 2px solid #213547;
-  box-shadow: #213547 0.5em 0.5em;
+  border: 2px solid $background-color;
+  box-shadow: $background-color 0.5em 0.5em;
 }
 
 .done {
-  background-color: aquamarine;
+  background-color: $alt-background-color;
   text-decoration: line-through;
 }
 
 .undone {
-  background-color: rgb(212, 127, 255);
+  background-color: $undone-bg-color;
 }
 
-.showCongratulations {
+.showCongratulations,
+.hideCongratulations {
   transform: translateX(0);
   opacity: 1;
   transition: transform 1s ease, opacity 1s ease;
+
+  &.hideCongratulations {
+    transform: translateX(100px);
+    opacity: 0;
+  }
 }
-
-.hideCongratulations {
-  transform: translateX(100px);
-  opacity: 0;
-  transition: transform 1s ease, opacity 1s ease;
-}
-
-// .animate {
-//   opacity: 1;
-//   transform: translateY(0); /* Reset any transformation */
-//   transition: opacity 0.5s, transform 0.5s;
-// }
-
-//comment to test push
